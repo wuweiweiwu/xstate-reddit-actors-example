@@ -11,6 +11,12 @@ const App = () => {
   const [current, send] = useMachine(redditMachine);
   const { subreddit } = current.context;
 
+  React.useEffect(() => {
+    if (subreddit) {
+      console.log(subreddit.state.matches("loaded"));
+    }
+  }, [subreddit?.state]);
+
   return (
     <main
       data-machine={redditMachine.id}

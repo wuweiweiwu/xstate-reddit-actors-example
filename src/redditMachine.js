@@ -1,7 +1,7 @@
-import { Machine, assign, spawn } from "xstate";
+import { Machine, assign, spawn, createMachine } from "xstate";
 import { createSubredditMachine } from "./subredditMachine";
 
-export const redditMachine = Machine({
+export const redditMachine = createMachine({
   id: "reddit",
   initial: "idle",
   context: {
@@ -25,7 +25,7 @@ export const redditMachine = Machine({
 
         // Otherwise, spawn a new subreddit actor and
         // save it in the subreddits object
-        subreddit = spawn(createSubredditMachine(event.name));
+        subreddit = spawn(createSubredditMachine(event.name), { sync: true });
 
         return {
           subreddits: {

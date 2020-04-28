@@ -1,4 +1,4 @@
-import { Machine, assign } from "xstate";
+import { Machine, assign, createMachine } from "xstate";
 
 function invokeFetchSubreddit(context) {
   console.log("fetching");
@@ -10,7 +10,7 @@ function invokeFetchSubreddit(context) {
 }
 
 export const createSubredditMachine = subreddit => {
-  return Machine({
+  return createMachine({
     id: "subreddit",
     initial: "loading",
     context: {
